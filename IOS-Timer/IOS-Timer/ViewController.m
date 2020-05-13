@@ -25,8 +25,10 @@ static NSString *cellIdentifier = @"cellIdentifier";
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
     
     //[self creatTimerToSelector];
-    [self creatTiemrToInvocation];
+    //[self creatTiemrToInvocation];
     
+    //[self creatTimerToSelector2];
+    [self asyncTimer];
 }
 /**
  + (NSTimer *)timerWithTimeInterval:(NSTimeInterval)ti invocation:(NSInvocation *)invocation repeats:(BOOL)yesOrNo;
@@ -48,44 +50,50 @@ static NSString *cellIdentifier = @"cellIdentifier";
 
 - (void)creatTiemrToInvocation {
     //1.首先获取方法签名
-       SEL selector = @selector(invocationTest:num:);
-       NSMethodSignature *signature = [[self class] methodSignatureForSelector:@selector(invocationTest)];
-    if (signature == nil) {
-        NSLog(@"=============");
-    } else {
-        NSLog(@"++++++++++++++++");
-    }
-       NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-       invocation.target = self;
-       invocation.selector = selector;
-       
-       //设置invocation的参数 设置参数要冲第二个参数设置起  前面有两个参数是  self， _cmd
-       NSString *str = @"guoweiyong";
-       [invocation setArgument:&str atIndex:2];
-       NSNumber *number = [NSNumber numberWithInt:20];
-       [invocation setArgument:&number atIndex:3];
-       
-       //这里也可以设置返回值，但是我这里没有返回值就不设置了
-       //    - (void)getReturnValue:(void *)retLoc;
-       //    - (void)setReturnValue:(void *)retLoc;
-       
-       //执行方法 定时器不需要调用这个方法
-       //[invocation invoke];
-       
+    SEL selector = @selector(invocationTest:num:);
+    NSMethodSignature *signature = [[self class] instanceMethodSignatureForSelector:selector];
+    
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = self;
+    invocation.selector = selector;
+    
+    //设置invocation的参数 设置参数要冲第二个参数设置起  前面有两个参数是  self， _cmd
+    NSString *str = @"guoweiyong";
+    [invocation setArgument:&str atIndex:2];
+    NSNumber *number = [NSNumber numberWithInt:20];
+    [invocation setArgument:&number atIndex:3];
+    
+    //这里也可以设置返回值，但是我这里没有返回值就不设置了
+    //    - (void)getReturnValue:(void *)retLoc;
+    //    - (void)setReturnValue:(void *)retLoc;
+    
+    //执行方法 定时器不需要调用这个方法
+    //[invocation invoke];
+    
     self.timer = [NSTimer timerWithTimeInterval:1 invocation:invocation repeats:true];
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
     //[self.timer fire];
 }
+- (void)invocationTest:(NSString *)str num:(NSNumber *)number {
+    NSLog(@"invocation 执行Timer test str=====%@  number====%@",str,number);
+}
 
-
+- (void)creatTimerToSelector2 {
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerfunc:) userInfo:nil repeats:YES];
+}
 
 - (void)timerfunc:(NSTimer *)timer{
     NSLog(@"timer  test======");
 }
 
-- (void)invocationTest {
-    NSLog(@"invocation 执行Timer test str=====%@  number====%@","guowei",@(20));
+- (void)asyncTimer {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSTimer* timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timerfunc:) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+        [[NSRunLoop currentRunLoop] run];
+    });
 }
+
 
 #pragma mark -- 表格代理
 
@@ -99,6 +107,12 @@ static NSString *cellIdentifier = @"cellIdentifier";
     cell.textLabel.text = [NSString stringWithFormat:@"第---%ld--行 test timer",(long)indexPath.row];
     
     return cell;
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     
 }
 
