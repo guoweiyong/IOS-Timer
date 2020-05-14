@@ -17,6 +17,10 @@
 
 /// 定时器
 @property (nonatomic, strong) NSTimer *timer;
+
+
+/** <#descrption#> */
+@property (nonatomic, strong) CADisplayLink *linkTiemr;
 @end
 
 static NSString *cellIdentifier = @"cellIdentifier";
@@ -112,6 +116,22 @@ static NSString *cellIdentifier = @"cellIdentifier";
     });
     //定时器的启动方法
     dispatch_resume(self.gcdTimer);
+}
+
+#pragma mark -- CADisplayLink
+- (void)testCADisplayLink {
+    //创建CADisplayLink定时器
+    self.linkTiemr = [CADisplayLink displayLinkWithTarget:self selector:@selector(displayLinkTest)];
+    //添加到RunLoop中
+    [self.linkTiemr addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    //终止定时器
+    [self.linkTiemr invalidate];
+    //销毁对象
+    self.linkTiemr = nil;
+}
+
+- (void)displayLinkTest {
+    NSLog(@"displayLinkTest===========");
 }
 
 #pragma mark -- 表格代理

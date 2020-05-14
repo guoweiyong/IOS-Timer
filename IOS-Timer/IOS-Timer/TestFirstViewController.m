@@ -32,9 +32,9 @@
     //[self gcdTiemrAsync];
     
     //[self afterExecture];
-    //[self afterExecture2];
+    [self afterExecture2];
     //[self ansycAfterExecture];
-    [self cancelAfterExecture];
+    //[self cancelAfterExecture];
 }
 
 - (void)dealloc {
@@ -99,12 +99,15 @@
     
     //去下dispatch_after的操作
     dispatch_block_cancel(self.delayBlcok);
+    NSLog(@"取消延迟执行=====");
 }
 
 - (void)afterExecture2 {
-    __weak typeof(self) weakSelf = self;
+    //__weak typeof(self) weakSelf = self;
     //使用perform 的方式来执行 延时操作
     [self performSelector:@selector(afterExectureTest) withObject:nil afterDelay:5];
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(afterExectureTest) object:nil];
 }
 
 - (void)ansycAfterExecture {
