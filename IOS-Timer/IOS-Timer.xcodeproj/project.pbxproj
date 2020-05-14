@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22915BEB246CCCAF00585C3F /* TestFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22915BEA246CCCAF00585C3F /* TestFirstViewController.m */; };
 		22E4A32B246BA12100A03B04 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E4A32A246BA12100A03B04 /* AppDelegate.m */; };
 		22E4A331246BA12100A03B04 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E4A330246BA12100A03B04 /* ViewController.m */; };
 		22E4A334246BA12100A03B04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22E4A332246BA12100A03B04 /* Main.storyboard */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22915BE9246CCCAF00585C3F /* TestFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestFirstViewController.h; sourceTree = "<group>"; };
+		22915BEA246CCCAF00585C3F /* TestFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestFirstViewController.m; sourceTree = "<group>"; };
 		22E4A326246BA12100A03B04 /* IOS-Timer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IOS-Timer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22E4A329246BA12100A03B04 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		22E4A32A246BA12100A03B04 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -110,6 +113,8 @@
 				22E4A337246BA12200A03B04 /* LaunchScreen.storyboard */,
 				22E4A33A246BA12200A03B04 /* Info.plist */,
 				22E4A33B246BA12200A03B04 /* main.m */,
+				22915BE9246CCCAF00585C3F /* TestFirstViewController.h */,
+				22915BEA246CCCAF00585C3F /* TestFirstViewController.m */,
 			);
 			path = "IOS-Timer";
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 				22E4A331246BA12100A03B04 /* ViewController.m in Sources */,
 				22E4A32B246BA12100A03B04 /* AppDelegate.m in Sources */,
 				22E4A33C246BA12200A03B04 /* main.m in Sources */,
+				22915BEB246CCCAF00585C3F /* TestFirstViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,7 +442,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W3JMG777KN;
 				INFOPLIST_FILE = "IOS-Timer/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -454,7 +460,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W3JMG777KN;
 				INFOPLIST_FILE = "IOS-Timer/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

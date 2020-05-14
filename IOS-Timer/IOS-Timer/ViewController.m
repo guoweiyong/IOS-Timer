@@ -7,10 +7,13 @@
 //
 
 #import "ViewController.h"
+#import "TestFirstViewController.h"
 
 @interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+/// GCD定时器
+@property (nonatomic, strong) dispatch_source_t gcdTimer;
 
 /// 定时器
 @property (nonatomic, strong) NSTimer *timer;
@@ -28,8 +31,12 @@ static NSString *cellIdentifier = @"cellIdentifier";
     //[self creatTiemrToInvocation];
     
     //[self creatTimerToSelector2];
-    [self asyncTimer];
+    //[self asyncTimer];
+    
+    //[self GCDTiemr];
 }
+
+#pragma mark -- NSTimer 定时器
 /**
  + (NSTimer *)timerWithTimeInterval:(NSTimeInterval)ti invocation:(NSInvocation *)invocation repeats:(BOOL)yesOrNo;
  + (NSTimer *)timerWithTimeInterval:(NSTimeInterval)ti target:(id)aTarget selector:(SEL)aSelector userInfo:(nullable id)userInfo repeats:(BOOL)yesOrNo;
@@ -95,6 +102,18 @@ static NSString *cellIdentifier = @"cellIdentifier";
 }
 
 
+#pragma mark --  GCD定时器
+- (void)GCDTiemr {
+    //最后一个参数是队列，在那个队列中执行
+    self.gcdTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
+    dispatch_source_set_timer(self.gcdTimer, DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+    dispatch_source_set_event_handler(self.gcdTimer, ^{
+        NSLog(@"GCD定时器执行");
+    });
+    //定时器的启动方法
+    dispatch_resume(self.gcdTimer);
+}
+
 #pragma mark -- 表格代理
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -112,7 +131,8 @@ static NSString *cellIdentifier = @"cellIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    TestFirstViewController *testVC = [self.storyboard instantiateViewControllerWithIdentifier:@"TestFirst"];
+    [self.navigationController pushViewController:testVC animated:YES];
     
 }
 
